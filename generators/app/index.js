@@ -1,5 +1,4 @@
 const Generator = require('yeoman-generator');
-console.log(Generator);
 const commandExists = require('command-exists').sync;
 const chalk = require('chalk');
 const yosay = require('yosay');
@@ -69,8 +68,9 @@ module.exports = class extends Generator {
   _writingFile() {
     this.fs.copy(this.templatePath('package.json'), this.destinationPath('package.json'));
     this.fs.copy(this.templatePath('favicon.ico'), this.destinationPath('favicon.ico'));
+    this.fs.copy(this.templatePath('yarn.lock'), this.destinationPath('yarn.lock'));
     this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
-    this.fs.copy(this.templatePath('npmrc'), this.destinationPath('.npmrc'));
+    this.fs.copy(this.templatePath('README.md'), this.destinationPath('README.md'));
     this.fs.copy(this.templatePath('babelrc'), this.destinationPath('.babelrc'));
     this.fs.copy(
       this.templatePath('postcss.config.js'),

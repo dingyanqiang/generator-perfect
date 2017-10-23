@@ -1,6 +1,6 @@
 {
   "name": "generator-perfect",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "to working more prefect",
   "homepage": "https://github.com/dingyanqiang/generator-perfect",
   "author": {
@@ -30,7 +30,6 @@
     "chalk": "^2.1.0",
     "command-exists": "^1.2.2",
     "mkdirp": "^0.5.1",
-    "subcommand": "^2.1.0",
     "yeoman-generator": "^2.0.1",
     "yosay": "^2.0.1"
   },

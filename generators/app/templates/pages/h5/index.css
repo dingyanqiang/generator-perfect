@@ -1,0 +1,7 @@
+html, body {
+    overflow-y: auto;
+    //background-color: #000;
+}
+div{
+	border-radius: 5px;
+}

@@ -1,5 +1,5 @@
-'use strict';
 const Generator = require('yeoman-generator');
+console.log(Generator);
 const commandExists = require('command-exists').sync;
 const chalk = require('chalk');
 const yosay = require('yosay');

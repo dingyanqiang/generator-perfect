@@ -27,13 +27,7 @@ module.exports = class extends Generator {
     });
   }
 
-  initializing() {
-    this.pkg = require('../../package.json');
-    this.composeWith(
-      require.resolve(`generator-${this.options['test-framework']}/generators/app`),
-      { 'skip-install': this.options['skip-install'] }
-    );
-  }
+  initializing() {}
 
   prompting() {
     // Have Yeoman greet the user.

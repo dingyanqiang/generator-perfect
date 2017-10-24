@@ -1,5 +1,6 @@
 const Generator = require('yeoman-generator');
 const commandExists = require('command-exists').sync;
+const chalk = require('chalk');
 const yosay = require('yosay');
 const mkdirp = require('mkdirp');
 
@@ -23,7 +24,7 @@ module.exports = class extends Generator {
   }
   initializing() {}
   prompting() {
-    this.log(yosay(`Welcome to use perfect generator!`));
+    this.log(yosay(`${chalk.cyan.bold('Welcome to use perfect generator!')}`));
     const prompts = [
       {
         type: 'list',
@@ -107,5 +108,19 @@ module.exports = class extends Generator {
       skipMessage: this.options['skip-install-message'],
       skipInstall: this.options['skip-install']
     });
+  }
+  end() {
+    const hasYarnLock = this.fs.accessSync(this.destinationPath('yarn.lock'));
+    const howToInstall = `After running ${chalk.yellow.bold(
+      'npm install'
+    )}, if fail try use cnpm install`;
+    if (this.options['skip-install']) {
+      this.log(howToInstall);
+      return;
+    }
+    if (hasYarnLock) {
+      this.log(`${chalk.cyan.bold('In general, you have installed success!')}`);
+    }
+    this.log(`${chalk.green.bold('Good luck to you!')}`);
   }
 };

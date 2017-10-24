@@ -9,8 +9,6 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const  glob = require('glob');
 
 const webpackConfig = require('./package.json').webpackConfig || {};
-
-const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
 const isProduction = (process.env.NODE_ENV === 'production') ? true : false;
 const entryObj = {};
 const htmlWebpackPluginArr = [];
@@ -67,8 +65,7 @@ function getRulesConfig() {
   const rulesConfig = [{
     test: /\.jsx?$/,
     include: path.resolve(__dirname, "src"),
-    loader: "babel-loader",
-    //options: {presets: ['es2015']}
+    loader: "babel-loader"
   }, {
     test: /\.(png|svg|jpg|gif)$/,
     use: [
@@ -84,7 +81,7 @@ function getRulesConfig() {
           use: [
             {
               loader: 'css-loader',
-              options: { modules: true }
+              options: { modules: webpackConfig.cssModule }
             },
             'postcss-loader', 
             'less-loader'
@@ -100,7 +97,7 @@ function getRulesConfig() {
           'style-loader',
           {
             loader: 'css-loader',
-            options: { modules: true }
+            options: { modules: webpackConfig.cssModule }
           },
           'postcss-loader',
           'less-loader'
@@ -117,7 +114,6 @@ module.exports = {
     filename: '[name]index.js',
     chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    //publicPath: path.resolve(__dirname)
   },
   module: {
     rules: getRulesConfig()

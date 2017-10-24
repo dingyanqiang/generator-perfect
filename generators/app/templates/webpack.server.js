@@ -5,7 +5,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const morgan = require('morgan');
 const chalk = require('chalk');
-const ejs = require('ejs');
 
 const log = console.log;
 const config = require('./webpack.dev.js');
@@ -22,7 +21,7 @@ const webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
 
 const app = express();
 app.set('views', path.join(__dirname, 'src', 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.use(morgan(function (tokens, req, res) {
 	let str = [
     tokens.method(req, res),
@@ -50,7 +49,7 @@ app.listen(port, 'localhost', function(err, result){
 	log(chalk.green(`Listening at ${chalk.cyan(`http://localhost:${port}/`)} \n`));
 });
 app.get("/", function(req, res) {
-	res.render('index',{
+	res.render('index-html',{
 		title:'列表页',
 		message:'请选择你需要进入的页面',
 		listUrl: getListUrl()

@@ -1,8 +1,8 @@
 import React from 'react'
-import './index.css';
+import style from './index.less';
 
 const Root = () => (
-  <div>Hello React</div>
+  <div className={style.test}>Hello server 1234</div>
 )
 
 export default Root

@@ -7,31 +7,24 @@ const mkdirp = require('mkdirp');
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
-
     this.option('skip-install-message', {
       desc: 'Skips the message after the installation of dependencies',
       type: Boolean
     });
-
     this.option('test-framework', {
       desc: 'Test framework to be invoked',
       type: String,
       defaults: 'mocha'
     });
-
     this.option('babel', {
       desc: 'Use Babel',
       type: Boolean,
       defaults: true
     });
   }
-
   initializing() {}
-
   prompting() {
-    // Have Yeoman greet the user.
-    this.log(yosay(`Welcome to use ${chalk.red('generator-perfect')} generator!`));
-
+    this.log(yosay(`Welcome to use ${chalk.cyan('generator-perfect')} generator!`));
     const prompts = [
       {
         type: 'list',
@@ -42,11 +35,6 @@ module.exports = class extends Generator {
             name: 'Less',
             value: 'includeLess',
             checked: true
-          },
-          {
-            name: 'Sass',
-            value: 'includeSass',
-            checked: false
           }
         ]
       }
@@ -81,10 +69,6 @@ module.exports = class extends Generator {
       this.destinationPath('webpack.common.js')
     );
     this.fs.copy(
-      this.templatePath('webpack.config.js'),
-      this.destinationPath('webpack.config.js')
-    );
-    this.fs.copy(
       this.templatePath('webpack.dev.js'),
       this.destinationPath('webpack.dev.js')
     );
@@ -112,7 +96,6 @@ module.exports = class extends Generator {
     mkdirp('src/publish/images');
     mkdirp('src/publish/svgs');
   }
-
   install() {
     const hasYarn = commandExists('yarn');
     this.installDependencies({

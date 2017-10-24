@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const vendors = [
-  //'antd',
   //'isomorphic-fetch',
   'react',
   'react-dom',
@@ -24,7 +23,6 @@ module.exports = {
   },
   plugins: [
     new webpack.DllPlugin({
-      //path: 'manifest.json',
       path:path.join(__dirname,'dist','dll','manifest.json'),
       name: '[name]',
       context: path.resolve(__dirname),

@@ -110,7 +110,7 @@ module.exports = class extends Generator {
     });
   }
   end() {
-    const hasYarnLock = this.fs.accessSync(this.destinationPath('yarn.lock'));
+    const yarnLockJson = this.fs.readJSON(this.destinationPath('yarn.lock'));
     const howToInstall = `After running ${chalk.yellow.bold(
       'npm install'
     )}, if fail try use cnpm install`;
@@ -118,7 +118,7 @@ module.exports = class extends Generator {
       this.log(howToInstall);
       return;
     }
-    if (hasYarnLock) {
+    if (yarnLockJson) {
       this.log(`${chalk.cyan.bold('In general, you have installed success!')}`);
     }
     this.log(`${chalk.green.bold('Good luck to you!')}`);

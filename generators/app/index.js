@@ -1,5 +1,5 @@
 const Generator = require('yeoman-generator');
-const commandExists = require('command-exists').sync;
+// Const commandExists = require('command-exists').sync;
 const chalk = require('chalk');
 const yosay = require('yosay');
 const mkdirp = require('mkdirp');
@@ -101,26 +101,26 @@ module.exports = class extends Generator {
     mkdirp('src/publish/svgs');
   }
   install() {
-    const hasYarn = commandExists('yarn');
-    this.installDependencies({
-      npm: !hasYarn,
-      yarn: hasYarn,
-      skipMessage: this.options['skip-install-message'],
-      skipInstall: this.options['skip-install']
-    });
+    // Const hasYarn = commandExists('yarn');
+    // this.installDependencies({
+    //   npm: !hasYarn,
+    //   yarn: hasYarn,
+    //   skipMessage: this.options['skip-install-message'],
+    //   skipInstall: this.options['skip-install']
+    // });
   }
   end() {
-    const yarnLockJson = this.fs.readJSON(this.destinationPath('yarn.lock'));
-    const howToInstall = `After running ${chalk.yellow.bold(
-      'npm install'
-    )}, if fail try use cnpm install`;
-    if (this.options['skip-install']) {
-      this.log(howToInstall);
-      return;
-    }
-    if (yarnLockJson) {
-      this.log(`${chalk.cyan.bold('In general, you have installed success!')}`);
-    }
+    // Const yarnLockJson = this.fs.readJSON(this.destinationPath('yarn.lock'));
+    // const howToInstall = `After running ${chalk.yellow.bold(
+    //   'npm install'
+    // )}, if fail try use cnpm install`;
+    // if (this.options['skip-install']) {
+    //   this.log(howToInstall);
+    //   return;
+    // }
+    // if (yarnLockJson) {
+    //   this.log(`${chalk.cyan.bold('In general, you have installed success!')}`);
+    // }
     this.log(`${chalk.green.bold('Good luck to you!')}`);
   }
 };

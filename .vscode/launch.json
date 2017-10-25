@@ -1,25 +1,17 @@
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
+  /*
+    1. config launch.json
+    2. node --debug-brk ./node_modules/yo/lib/cli.js perfect
+    */
+  "version": "0.1.8",
+  "configurations": [
     {
-        "type": "node",
-        "request": "launch",
-        "name": "Yeoman generator",
-        "program": "${workspaceFolder}/generators/app/index.js",
-        "args": [
-            "generator"
-        ],
-        "console": "integratedTerminal",
-        "internalConsoleOptions": "neverOpen"
-    },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${file}"
-        }
-    ]
+      "type": "node",
+      "request": "launch",
+      "name": "Yeoman perfect",
+      "program": "${workspaceFolder}/node_modules/yo/lib/cli.js",
+      "args": ["perfect", "--skip-install"],
+      "stopOnEntry": true
+    }
+  ]
 }

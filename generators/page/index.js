@@ -27,19 +27,19 @@ module.exports = class extends Generator {
   }
 
   _writingPageFile() {
-    //const { projectType, styleType } =  this.pkg;
+    // Const { projectType, styleType } =  this.pkg;
     const defaultsConfig = this.config.getAll();
-    const { projectType, styleType } =  defaultsConfig;
+    const { projectType, styleType } = defaultsConfig;
     const pageName = this.answers.pageName.toLowerCase();
     defaultsConfig.pageName = pageName;
-  
+
     this.fs.copyTpl(
       this.templatePath(`${projectType}/index.js`),
       this.destinationPath(`src/pages/${pageName}/index.js`),
       defaultsConfig
     );
 
-    if( projectType == 'pc' || projectType == 'h5'){
+    if (projectType == 'pc' || projectType == 'h5') {
       this.fs.copyTpl(
         this.templatePath(`${projectType}/index.html`),
         this.destinationPath(`src/pages/${pageName}/index.html`),
@@ -47,7 +47,7 @@ module.exports = class extends Generator {
       );
     }
 
-    if( projectType == 'vue' ){
+    if (projectType == 'vue') {
       this.fs.copyTpl(
         this.templatePath(`${projectType}/App.vue`),
         this.destinationPath(`src/pages/${pageName}/App.vue`),
@@ -63,7 +63,7 @@ module.exports = class extends Generator {
   }
 
   end() {
-    //this.log(this.config.getAll());
+    // This.log(this.config.getAll());
     this.log(`${chalk.green.bold('Create Page End!')}`);
   }
 };

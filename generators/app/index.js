@@ -21,26 +21,34 @@ module.exports = class extends Generator {
   }
   initializing() {
     console.log('this is initializing');
-    //'generator-perfect'
+    // 'generator-perfect'
     let done = this.async();
     this.pkg = require(path.join(__dirname, '../../package.json'));
     this.log(chalk.yellow('正在检查更新...'));
 
-    urllib.request('http://registry.npmjs.org/generator-perfect/latest', function (err, data, res) {
-      if (err || res.statusCode != 200) {
-        this.log(chalk.red('检查更新出错'));
-      } else {
-        data = JSON.parse(data.toString());
-        if (data.version !== this.pkg.version) {
-          this.log('发现新版本：' + chalk.red(data.version) + ', 当前版本：' + chalk.yellow(this.pkg.version) + '.');
-          this.log('版本有更新，建议更新：npm install -g generator-perfect');
+    urllib.request(
+      'http://registry.npmjs.org/generator-perfect/latest',
+      function(err, data, res) {
+        if (err || res.statusCode != 200) {
+          this.log(chalk.red('检查更新出错'));
         } else {
-          this.log('当前版本为最新版本');
+          data = JSON.parse(data.toString());
+          if (data.version !== this.pkg.version) {
+            this.log(
+              '发现新版本：' +
+                chalk.red(data.version) +
+                ', 当前版本：' +
+                chalk.yellow(this.pkg.version) +
+                '.'
+            );
+            this.log('版本有更新，建议更新：npm install -g generator-perfect');
+          } else {
+            this.log('当前版本为最新版本');
+          }
         }
-      }
-      done();
-    }.bind(this));
-
+        done();
+      }.bind(this)
+    );
   }
   _getDefaultProjectName() {
     function parseMojoName(name) {
@@ -135,7 +143,6 @@ module.exports = class extends Generator {
     this._writingProjectConfigFile();
     this._writingPageFile();
     this.config.defaults(this.answers);
-    
   }
   _writingProjectFrame() {
     mkdirp('src/pages');
@@ -179,10 +186,7 @@ module.exports = class extends Generator {
       this.templatePath('webpack.server.js'),
       this.destinationPath('webpack.server.js')
     );
-    this.fs.copy(
-      this.templatePath('views/**'), 
-      this.destinationPath('src/views')
-    );
+    this.fs.copy(this.templatePath('views/**'), this.destinationPath('src/views'));
   }
   _writingPageFile() {
     let { projectType, styleType } = this.answers;
@@ -192,7 +196,7 @@ module.exports = class extends Generator {
       this.answers
     );
 
-    if( projectType == 'pc' || projectType == 'h5'){
+    if (projectType == 'pc' || projectType == 'h5') {
       this.fs.copyTpl(
         this.templatePath(`pages/${projectType}/index.html`),
         this.destinationPath(`src/pages/${projectType}/index.html`),
@@ -200,7 +204,7 @@ module.exports = class extends Generator {
       );
     }
 
-    if( projectType == 'vue' ){
+    if (projectType == 'vue') {
       this.fs.copyTpl(
         this.templatePath(`pages/${projectType}/App.vue`),
         this.destinationPath(`src/pages/${projectType}/App.vue`),
@@ -236,7 +240,7 @@ module.exports = class extends Generator {
     // if (yarnLockJson) {
     //   this.log(`${chalk.cyan.bold('In general, you have installed success!')}`);
     // }
-    //this.log(this.config.getAll());
+    // this.log(this.config.getAll());
     this.log(`${chalk.green.bold('Your Project Create Success!')}`);
   }
 };

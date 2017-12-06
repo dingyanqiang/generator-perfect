@@ -21,7 +21,7 @@ module.exports = class extends Generator {
     });
   }
   _getUtilName(str) {
-    return str.substring(0,1).toUpperCase() + str.substring(1).toLowerCase();
+    return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
   }
   writing() {
     const utilName = this._getUtilName(this.answers.utilName);
@@ -34,7 +34,7 @@ module.exports = class extends Generator {
     );
   }
   end() {
-    //this.log(this.config.getAll());
+    // This.log(this.config.getAll());
     this.log(`${chalk.green.bold('Create Util End!')}`);
   }
 };

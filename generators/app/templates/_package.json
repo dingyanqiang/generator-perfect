@@ -1,19 +1,15 @@
 {
-  "name": "<%= projectName %>",
-  "projectType": "<%= projectType %>",
-  "styleType": "<%= styleType%>",
-  "version": "<%= version %>",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "dll": "webpack --progress --hide-modules --config webpack.dll.js",
     "server": "node webpack.server.js",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack.prod.js",
+    "build":
+      "cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [""],
-  "author": "<%= author %>",
-  "email": "<%= email %>",
+  "author": "丁延强",
+  "email": "dingyanqiang@126.com",
   "license": "ISC",
   "webpackConfig": {
     "entryPage": "src/pages/*",
@@ -36,14 +32,8 @@
     "extract-text-webpack-plugin": "^3.0.1",
     "glob": "^7.1.2",
     "html-webpack-plugin": "^2.30.1",
-    <% if (styleType == "scss") { %>
-    "sass-node": "^4.0.0",
-    "sass-loader": "^6.0.0",
-    <% } %>
-    <% if (styleType == "less") { %>
     "less": "^2.3.1",
     "less-loader": "^4.0.5",
-    <% } %>
     "morgan": "^1.9.0",
     "open-browser-webpack-plugin": "^0.0.5",
     "postcss-loader": "^2.0.8",
@@ -55,12 +45,7 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
-    <% if (projectType == "react") { %>
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
-    <% } %>
-    <% if (projectType == "vue") { %>
-      "vue": "^2.5.0"
-    <% } %>
   }
 }

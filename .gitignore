@@ -1,2 +1,21 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependency directory
 node_modules
-coverage
+
+# Bower
+bower_components/
+
+# IDE/Editor data
+.idea
+.DS_Store
+build/.DS_Store
+dist/.DS_Store
+

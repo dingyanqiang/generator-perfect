@@ -5,5 +5,49 @@
       "authorEmail": "dingyanqiang@126.com",
       "authorUrl": "https://github.com/dingyanqiang"
     }
+  },
+  "Pc": {
+    "projectType": "react",
+    "projectName": "testReact",
+    "author": "ding",
+    "email": "dingyanqiang@126.com",
+    "version": "0.0.1",
+    "styleType": "scss"
+  },
+  "testReact": {
+    "projectType": "pc",
+    "projectName": "pc",
+    "author": "ding",
+    "email": "dingyanqiang@126.co",
+    "version": "1.0.0",
+    "styleType": "scss"
+  },
+  "pc": {
+    "projectType": "react",
+    "projectName": "react",
+    "author": "ding",
+    "email": "dingyanqiang@126.com",
+    "version": "1.0.0",
+    "styleType": "scss",
+    "answers": {
+      "projectType": "pc",
+      "styleType": "scss",
+      "projectName": "pctest"
+    }
+  },
+  "react": {
+    "answers": {
+      "projectType": "pc",
+      "styleType": "scss",
+      "projectName": "pc"
+    }
+  },
+  "pctest": {
+    "projectType": "pc",
+    "projectName": "pctest",
+    "author": "ding",
+    "email": "dingyanqiang@126.com",
+    "version": "1.0.0",
+    "styleType": "scss"
   }
 }

@@ -3,6 +3,8 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const mkdirp = require('mkdirp');
+const path = require('path');
+const urllib = require('urllib');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -16,50 +18,139 @@ module.exports = class extends Generator {
       type: String,
       defaults: 'mocha'
     });
-    this.option('babel', {
-      desc: 'Use Babel',
-      type: Boolean,
-      defaults: true
-    });
   }
-  initializing() {}
+  initializing() {
+    console.log('this is initializing');
+    //'generator-perfect'
+    let done = this.async();
+    this.pkg = require(path.join(__dirname, '../../package.json'));
+    this.log(chalk.yellow('正在检查更新...'));
+
+    urllib.request('http://registry.npmjs.org/generator-perfect/latest', function (err, data, res) {
+      if (err || res.statusCode != 200) {
+        this.log(chalk.red('检查更新出错'));
+      } else {
+        data = JSON.parse(data.toString());
+        if (data.version !== this.pkg.version) {
+          this.log('发现新版本：' + chalk.red(data.version) + ', 当前版本：' + chalk.yellow(this.pkg.version) + '.');
+          this.log('版本有更新，建议更新：npm install -g generator-perfect');
+        } else {
+          this.log('当前版本为最新版本');
+        }
+      }
+      done();
+    }.bind(this));
+
+  }
+  _getDefaultProjectName() {
+    function parseMojoName(name) {
+      return name.replace(/\b(\w)|(-\w)/g, m => {
+        return m.toUpperCase().replace('-', '');
+      });
+    }
+    const projectName = path.basename(process.cwd());
+    return parseMojoName(projectName);
+  }
   prompting() {
     this.log(yosay(`${chalk.cyan.bold('Welcome to use perfect generator!')}`));
+    const projectName = this._getDefaultProjectName();
     const prompts = [
       {
         type: 'list',
-        name: 'features',
-        message: 'Which additional features would you like to include?',
+        name: 'projectType',
+        message: '请选择你需要的项目类型',
+        choices: [
+          {
+            name: 'React',
+            value: 'react'
+          },
+          {
+            name: 'Vue',
+            value: 'vue'
+          },
+          {
+            name: 'PC',
+            value: 'pc'
+          },
+          {
+            name: 'H5',
+            value: 'h5'
+          }
+        ]
+      },
+      {
+        type: 'input',
+        name: 'projectName',
+        message: 'Name of Project?',
+        default: projectName
+      },
+      {
+        type: 'input',
+        name: 'author',
+        message: 'Author Name:',
+        default: this.user.git.name() || ''
+      },
+      {
+        type: 'input',
+        name: 'email',
+        message: 'Author Email:',
+        default: this.user.git.email() || ''
+      },
+      {
+        type: 'input',
+        name: 'version',
+        message: 'Version:',
+        default: '1.0.0'
+      },
+      {
+        type: 'list',
+        name: 'styleType',
+        message: '选择CSS预处理器?',
         choices: [
           {
             name: 'Less',
-            value: 'includeLess',
+            value: 'less',
             checked: true
           },
           {
             name: 'Sass',
-            value: 'includeSass',
+            value: 'scss',
+            checked: false
+          },
+          {
+            name: 'Css',
+            value: 'css',
             checked: false
           }
         ]
       }
     ];
-
     return this.prompt(prompts).then(answers => {
-      const features = answers.features;
-      const hasFeature = feat => features && features.indexOf(feat) !== -1;
-      this.includeLess = hasFeature('includeLess');
-      this.includeSass = hasFeature('includeSass');
+      this.answers = answers;
     });
   }
 
   writing() {
-    this._writingFile();
-    this._writingDir();
-    this._writingMisc();
+    this._writingProjectFrame();
+    this._writingProjectConfigFile();
+    this._writingPageFile();
+    this.config.defaults(this.answers);
+    
   }
-  _writingFile() {
-    this.fs.copy(this.templatePath('package.json'), this.destinationPath('package.json'));
+  _writingProjectFrame() {
+    mkdirp('src/pages');
+    mkdirp('src/components');
+    mkdirp('src/utils');
+    mkdirp('src/publish/lib');
+    mkdirp('src/publish/images');
+    mkdirp('src/publish/svgs');
+  }
+  _writingProjectConfigFile() {
+    this.fs.copyTpl(
+      this.templatePath('package.json'),
+      this.destinationPath('package.json'),
+      this.answers
+    );
     this.fs.copy(this.templatePath('favicon.ico'), this.destinationPath('favicon.ico'));
     this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('README.md'), this.destinationPath('README.md'));
@@ -88,17 +179,40 @@ module.exports = class extends Generator {
       this.templatePath('webpack.server.js'),
       this.destinationPath('webpack.server.js')
     );
+    this.fs.copy(
+      this.templatePath('views/**'), 
+      this.destinationPath('src/views')
+    );
   }
-  _writingDir() {
-    this.fs.copy(this.templatePath('pages/**'), this.destinationPath('src/pages/'));
-    this.fs.copy(this.templatePath('views/**'), this.destinationPath('src/views'));
-  }
-  _writingMisc() {
-    mkdirp('src/components');
-    mkdirp('src/utils');
-    mkdirp('src/publish/lib');
-    mkdirp('src/publish/images');
-    mkdirp('src/publish/svgs');
+  _writingPageFile() {
+    let { projectType, styleType } = this.answers;
+    this.fs.copyTpl(
+      this.templatePath(`pages/${projectType}/index.js`),
+      this.destinationPath(`src/pages/${projectType}/index.js`),
+      this.answers
+    );
+
+    if( projectType == 'pc' || projectType == 'h5'){
+      this.fs.copyTpl(
+        this.templatePath(`pages/${projectType}/index.html`),
+        this.destinationPath(`src/pages/${projectType}/index.html`),
+        this.answers
+      );
+    }
+
+    if( projectType == 'vue' ){
+      this.fs.copyTpl(
+        this.templatePath(`pages/${projectType}/App.vue`),
+        this.destinationPath(`src/pages/${projectType}/App.vue`),
+        this.answers
+      );
+    } else {
+      this.fs.copyTpl(
+        this.templatePath(`pages/${projectType}/index.css`),
+        this.destinationPath(`src/pages/${projectType}/index.${styleType}`),
+        this.answers
+      );
+    }
   }
   install() {
     // Const hasYarn = commandExists('yarn');
@@ -110,6 +224,7 @@ module.exports = class extends Generator {
     // });
   }
   end() {
+    const packageJson = this.fs.readJSON(this.destinationPath('package.json'));
     // Const yarnLockJson = this.fs.readJSON(this.destinationPath('yarn.lock'));
     // const howToInstall = `After running ${chalk.yellow.bold(
     //   'npm install'
@@ -121,6 +236,7 @@ module.exports = class extends Generator {
     // if (yarnLockJson) {
     //   this.log(`${chalk.cyan.bold('In general, you have installed success!')}`);
     // }
-    this.log(`${chalk.green.bold('Good luck to you!')}`);
+    //this.log(this.config.getAll());
+    this.log(`${chalk.green.bold('Your Project Create Success!')}`);
   }
 };

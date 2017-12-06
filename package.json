@@ -41,7 +41,6 @@
   "scripts": {
     "prepublish": "nsp check",
     "pretest": "eslint .",
-    
     "test": "jest"
   },
   "lint-staged": {

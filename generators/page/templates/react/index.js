@@ -1,16 +1,32 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.<%= styleType %>';
+/**
+ * CSS Moudle
+ * import style from './index.<%= styleType %>';
+ */
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
+
+
+
+
+class Welcome extends React.Component {
+  state = {
+    name: 'Perfect'
+  }
+  render() {
+    return <h1>Hello, {this.state.name}</h1>;
+  }
+}
 
 const render = Component => {
   ReactDOM.render(
     <Component />,
     document.getElementById('root'),
   )
-}
+};
 
-render(App)
+render(Welcome);
 
 // Webpack Hot Module Replacement API
 if (module.hot) {

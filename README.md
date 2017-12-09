@@ -1,5 +1,5 @@
 # generator-perfect [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> 项目创建入口统一，不再copy项目，不再手动配置环境 => now(to working more prefect)
+> 项目创建入口统一, 不再copy项目, 不再手动配置环境 => now(to working more prefect)
 
 ![image](./screenshot.jpg)
 
@@ -14,7 +14,7 @@ npm install -g generator-perfect
 ```bash
 yo perfect
 ```
-创建Page:
+创建Page:
 ```bash
 yo perfect:page
 ```

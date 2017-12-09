@@ -1,6 +1,8 @@
 # generator-perfect [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > to working more prefect
 
+![image](demo.jpg)
+
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and generator-perfect using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
@@ -16,12 +18,22 @@ Then generate your new project:
 yo perfect
 ```
 
-## Getting To Know Yeoman
+## 支持项目类型
+ * [X] React
+ * [X] Vue
+ * [X] PC
+ * [X] H5
 
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
+## 特性
+
+* [X] 可选择Less Lass Css
+* [X] 默认开启 CSS moduel
+* [X] 热替换(Hot Replace)
+* [X] 样式前缀(AutoPrefixer)
+* [X] 支持浏览器版本可配置(Browsers Config)
+* [ ] TypeScript(TODO)
+* [ ] 测试用例(TODO)
+
 
 ## License
 

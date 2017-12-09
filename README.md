@@ -1,24 +1,33 @@
 # generator-perfect [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> to working more prefect
+> 项目创建入口统一，不再copy项目，不再手动配置环境 => now(to working more prefect)
 
 ![image](./screenshot.jpg)
 
-## Installation
-
-First, install [Yeoman](http://yeoman.io) and generator-perfect using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+## 安装
 
 ```bash
 npm install -g yo
 npm install -g generator-perfect
 ```
 
-Then generate your new project:
-
+创建Project:
 ```bash
 yo perfect
 ```
+创建Page:
+```bash
+yo perfect:page
+```
+创建Component:
+```bash
+yo perfect:component
+```
+创建Util:
+```bash
+yo perfect:util
+```
 
-## 支持项目类型
+## 支持项目类型
  * [X] React
  * [X] Vue
  * [X] PC

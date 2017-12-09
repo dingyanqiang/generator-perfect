@@ -1,7 +1,7 @@
 # generator-perfect [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > to working more prefect
 
-![image](demo.jpg)
+![image](./screenshot.jpg)
 
 ## Installation
 
@@ -19,16 +19,16 @@ yo perfect
 ```
 
 ## 支持项目类型
- * [X] React
- * [X] Vue
- * [X] PC
- * [X] H5
+ * [X] React
+ * [X] Vue
+ * [X] PC
+ * [X] H5
 
 ## 特性
 
-* [X] 可选择Less Lass Css
-* [X] 默认开启 CSS moduel
-* [X] 热替换(Hot Replace)
+* [X] 可选择Less Lass Css
+* [X] 默认开启 CSS moduel
+* [X] 热替换(Hot Replace)
 * [X] 样式前缀(AutoPrefixer)
 * [X] 支持浏览器版本可配置(Browsers Config)
 * [ ] TypeScript(TODO)

@@ -129,7 +129,7 @@ function getRulesConfig() {
         <% if (styleType == 'less') { %>'less-loader',<% } %>
         <% if (styleType == 'scss') { %>'sass-loader'<% } %>
       ]
-    }
+    });
   }
   return rulesConfig;
 }

@@ -77,11 +77,11 @@ function getPluginsConfig() {
 }
 function getRulesConfig() {
   const rulesConfig = [
-    <% if (projectType == 'vue') { %>{
+    {
       test: /\.vue$/,
       include: path.resolve(__dirname, "src"),
       loader: 'vue-loader'
-    },<% } %>
+    },
     {
       test: /\.jsx?$/,
       include: path.resolve(__dirname, "src"),
@@ -96,9 +96,9 @@ function getRulesConfig() {
   if (isProduction) {
     rulesConfig.push(
       {
-        <% if (styleType == 'less') { %>test: /\.(css|less)$/,<% } %>
-        <% if (styleType == 'scss') { %>test: /\.(css|scss)$/,<% } %>
-        <% if (styleType == 'css') { %>test: /\.(css)$/,<% } %>
+        
+        test: /\.(css|scss)$/,
+        
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -107,16 +107,16 @@ function getRulesConfig() {
               options: { modules: webpackConfig.cssModule }
             },
             'postcss-loader', 
-            <% if (styleType == 'less') { %>'less-loader',<% } %>
-            <% if (styleType == 'scss') { %>'sass-loader'<% } %>
+            
+            'sass-loader'
           ]
         })
       }
     );
   } else {
-    <% if (styleType == 'less') { %>test: /\.(css|less)$/,<% } %>
-    <% if (styleType == 'scss') { %>test: /\.(css|scss)$/,<% } %>
-    <% if (styleType == 'css') { %>test: /\.(css)$/,<% } %>
+    
+    test: /\.(css|scss)$/,
+    
     use: [
       'style-loader',
       {
@@ -124,8 +124,8 @@ function getRulesConfig() {
         options: { modules: webpackConfig.cssModule }
       },
       'postcss-loader',
-      <% if (styleType == 'less') { %>'less-loader',<% } %>
-      <% if (styleType == 'scss') { %>'sass-loader'<% } %>
+      
+      'sass-loader'
     ]
   }
   return rulesConfig;
@@ -142,4 +142,4 @@ module.exports = {
     rules: getRulesConfig()
   },
   plugins: getPluginsConfig()
-}
+};

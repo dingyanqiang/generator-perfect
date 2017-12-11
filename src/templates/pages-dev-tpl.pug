@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title!= title
+    style(type='text/css').
+      * {
+      	margin:0;
+      	padding:0;
+        list-style: none;
+      }
+      li {
+      	margin: 5px;
+      }
+      a {
+        text-decoration: none;
+        color: #2B940B;
+      }
+      .titleClass {
+      	font-size: 20px;
+      	margin: 10px 0;
+      	color:#2B940B;
+      }
+    body
+    h1.titleClass #{message}
+    ul
+      each item in listUrl
+        li 
+          a(href=item, target='_blank') #{item}

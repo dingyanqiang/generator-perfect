@@ -5,5 +5,21 @@
       "authorEmail": "dingyanqiang@126.com",
       "authorUrl": "https://github.com/dingyanqiang"
     }
+  },
+  "generator-perfect": {
+    "projectType": "react",
+    "projectName": "GeneratorPerfect",
+    "author": "dingyanqiang",
+    "email": "dingyanqiang@58ganji.com",
+    "version": "1.0.0",
+    "styleType": "less"
+  },
+  "GeneratorPerfect": {
+    "projectType": "vue",
+    "projectName": "GeneratorPerfect",
+    "author": "dingyanqiang",
+    "email": "dingyanqiang@58ganji.com",
+    "version": "1.0.0",
+    "styleType": "less"
   }
 }

@@ -77,56 +77,81 @@ function getPluginsConfig() {
 }
 function getRulesConfig() {
   const rulesConfig = [
-    <% if (projectType == 'vue') { %>{
-      test: /\.vue$/,
-      include: path.resolve(__dirname, "src"),
-      loader: 'vue-loader'
-    },<% } %>
+    // <% if (projectType == 'vue') { %>
+    // {
+    //   test: /\.vue$/,
+    //   include: path.resolve(__dirname, "src"),
+    //   loader: 'babel-vue'
+    // },
+    // <% } %>
     {
       test: /\.jsx?$/,
       include: path.resolve(__dirname, "src"),
       loader: 'babel-loader'
-    }, 
-    {
+    }, {
       test: /\.(png|svg|jpg|gif)$/,
       use: [ 'file-loader' ]
     }
   ];
   
   if (isProduction) {
-    rulesConfig.push(
-      {
-        <% if (styleType == 'less') { %>test: /\.(css|less)$/,<% } %>
-        <% if (styleType == 'scss') { %>test: /\.(css|scss)$/,<% } %>
-        <% if (styleType == 'css') { %>test: /\.(css)$/,<% } %>
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: { modules: webpackConfig.cssModule }
-            },
-            'postcss-loader', 
-            <% if (styleType == 'less') { %>'less-loader',<% } %>
-            <% if (styleType == 'scss') { %>'sass-loader'<% } %>
-          ]
-        })
-      }
-    );
+    // rulesConfig.push(
+    //   {
+    //     <% if (styleType == 'less') { %>
+    //     test: /\.(css|less)$/,
+    //     <% } %>
+    //     <% else if ( styleType == 'sass' ) { %>
+    //     test: /\.(css|scss)$/,
+    //     <% } %>
+    //     <% else { %>
+    //     test: /\.(css)$/,
+    //     <% } %>
+    //     use: ExtractTextPlugin.extract({
+    //       fallback: 'style-loader',
+    //       use: [
+    //         {
+    //           loader: 'css-loader',
+    //           options: { modules: webpackConfig.cssModule }
+    //         },
+    //         'postcss-loader', 
+    //         <% if (styleType == 'less') { %>
+    //         'less-loader',
+    //         <% } %>
+    //         <% if (styleType == 'sass') { %>
+    //         'sass-loader'
+    //         <% } %>
+    //       ]
+    //     })
+    //   }
+    // );
   } else {
-    <% if (styleType == 'less') { %>test: /\.(css|less)$/,<% } %>
-    <% if (styleType == 'scss') { %>test: /\.(css|scss)$/,<% } %>
-    <% if (styleType == 'css') { %>test: /\.(css)$/,<% } %>
-    use: [
-      'style-loader',
-      {
-        loader: 'css-loader',
-        options: { modules: webpackConfig.cssModule }
-      },
-      'postcss-loader',
-      <% if (styleType == 'less') { %>'less-loader',<% } %>
-      <% if (styleType == 'scss') { %>'sass-loader'<% } %>
-    ]
+    // rulesConfig.push(
+    //   {
+    //     <% if (styleType == 'less') { %>
+    //     test: /\.(css|less)$/,
+    //     <% } %>
+    //     <% else if ( styleType == 'sass' ) { %>
+    //     test: /\.(css|scss)$/,
+    //     <% } %>
+    //     <% else { %>
+    //     test: /\.(css)$/,
+    //     <% } %>
+    //     use: [
+    //       'style-loader',
+    //       {
+    //         loader: 'css-loader',
+    //         options: { modules: webpackConfig.cssModule }
+    //       },
+    //       'postcss-loader',
+    //       <% if (styleType == 'less') { %>
+    //       'less-loader',
+    //       <% } %>
+    //       <% if (styleType == 'sass') { %>
+    //       'sass-loader'
+    //       <% } %>
+    //     ]
+    //   }
+    // );
   }
   return rulesConfig;
 }

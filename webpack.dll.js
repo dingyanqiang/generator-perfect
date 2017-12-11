@@ -10,21 +10,12 @@ const bannerTpl = `
 const vendors = [
   'isomorphic-fetch',
   'moment',
-  <% if (projectType == "vue") { %>
+  
   'vue',
   // 'vue-router',
   // 'vue-x',
-  <% } %>
-  <% if (projectType == "react") { %>
-  'react',
-  'react-dom',
-  // 'react-redux',
-  // 'react-router',
-  // 'redux',
-  // 'redux-promise-middleware',
-  // 'redux-thunk',
-  // 'superagent',
-  <% } %>
+  
+  
 ];
 
 const pluginsArr = [

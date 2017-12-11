@@ -28,7 +28,7 @@ module.exports = class extends Generator {
 
     urllib.request(
       'http://registry.npmjs.org/generator-perfect/latest',
-      function(err, data, res) {
+      function (err, data, res) {
         if (err || res.statusCode != 200) {
           this.log(chalk.red('检查更新出错'));
         } else {
@@ -36,10 +36,10 @@ module.exports = class extends Generator {
           if (data.version !== this.pkg.version) {
             this.log(
               '发现新版本：' +
-                chalk.red(data.version) +
-                ', 当前版本：' +
-                chalk.yellow(this.pkg.version) +
-                '.'
+              chalk.red(data.version) +
+              ', 当前版本：' +
+              chalk.yellow(this.pkg.version) +
+              '.'
             );
             this.log('版本有更新，建议更新：npm install -g generator-perfect');
           } else {
@@ -161,23 +161,20 @@ module.exports = class extends Generator {
       this.templatePath('postcss.config.js'),
       this.destinationPath('postcss.config.js')
     );
-    this.fs.copy(
-      this.templatePath('dev-template/**'),
-      this.destinationPath('src/templates')
-    );
+    this.fs.copy(this.templatePath('views/**'), this.destinationPath('src/templates'));
     this.fs.copyTpl(
       this.templatePath('package.json'),
       this.destinationPath('package.json'),
       this.answers
     );
     this.fs.copyTpl(
-      this.templatePath('webpack.common.js'),
-      this.destinationPath('webpack.common.js'),
+      this.templatePath('webpack.dev.js'),
+      this.destinationPath('webpack.dev.js'),
       this.answers
     );
     this.fs.copyTpl(
-      this.templatePath('webpack.dev.js'),
-      this.destinationPath('webpack.dev.js'),
+      this.templatePath('webpack.common.js'),
+      this.destinationPath('webpack.common.js'),
       this.answers
     );
     this.fs.copyTpl(

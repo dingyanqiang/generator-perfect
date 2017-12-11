@@ -39,7 +39,7 @@
     "glob": "^7.1.2",
     "html-webpack-plugin": "^2.30.1",
     <% if (styleType == "scss") { %>
-    "sass-node": "^4.0.0",
+    "node-sass": "^4.0.0",
     "sass-loader": "^6.0.0",
     <% } %>
     <% if (styleType == "less") { %>

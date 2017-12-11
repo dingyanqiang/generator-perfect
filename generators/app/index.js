@@ -28,22 +28,19 @@ module.exports = class extends Generator {
 
     urllib.request(
       'http://registry.npmjs.org/generator-perfect/latest',
-      function (err, data, res) {
-        if (err || res.statusCode != 200) {
+      function(err, data, res) {
+        if (err || res.statusCode !== 200) {
           this.log(chalk.red('检查更新出错'));
         } else {
           data = JSON.parse(data.toString());
-          if (data.version !== this.pkg.version) {
-            this.log(
-              '发现新版本：' +
-              chalk.red(data.version) +
-              ', 当前版本：' +
-              chalk.yellow(this.pkg.version) +
-              '.'
-            );
-            this.log('版本有更新，建议更新：npm install -g generator-perfect');
+          if (data.version === this.pkg.version) {
+            this.log(`当前版本为最新版本${data.version}`);
           } else {
-            this.log('当前版本为最新版本');
+            this.log(`
+            发现新版本：${chalk.red(data.version)}
+            当前版本：${chalk.yellow(this.pkg.version)}
+            `);
+            this.log('版本有更新，建议更新：npm install -g generator-perfect');
           }
         }
         done();

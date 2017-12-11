@@ -3,7 +3,12 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const pkg = require('./package.json');
 
-let time = (new Date).toLocaleString();
+const time = (new Date).toLocaleString();
+const bannerTpl = `
+@author:${pkg.author}
+@email:${pkg.email}
+@time:${time}
+`;
 
 module.exports = merge(common, {
   devtool: 'source-map',
@@ -15,7 +20,7 @@ module.exports = merge(common, {
     }),
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.BannerPlugin({
-      banner: `author:${pkg.author},email:${pkg.email},time:${time}`
+      banner: bannerTpl
     })
   ]
 });

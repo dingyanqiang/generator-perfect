@@ -2,10 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const pkg = require('./package.json');
 const isProduction = (process.env.NODE_ENV === 'production') ? true : false;
+const time = (new Date).toLocaleString();
 const bannerTpl = `
 @author:${pkg.author}
 @email:${pkg.email}
-@email:${time}
+@time:${time}
 `;
 const vendors = [
   'isomorphic-fetch',

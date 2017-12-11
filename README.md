@@ -1,5 +1,9 @@
 # generator-perfect [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> 项目创建入口统一, 不再copy项目, 不再手动配置环境 => now(to working more prefect)
+
+## Generator-Perfect(前端脚手架)
+
+> Perfect主要目的是快速开启新项目，并加强前端项目的规范性，统一性。一个入口可以选择不同的开发框架；但是项目目录统一，规范统一，功能统一。项目依赖于Yeoman+Webpack+Bable+Express,能够很好的推进技术升级，避免了手动Copy、繁琐的配置环境. 另外，Perfect还有很好的可配置性，既规范了项目又不缺失灵活性.
+
 
 ![image](./screenshot.jpg)
 
@@ -43,6 +47,7 @@ yo perfect:util
 * [X] 热替换(Hot Replace)
 * [X] 样式前缀(AutoPrefixer)
 * [X] 支持浏览器版本可配置(Browsers Config)
+* [ ] Mock接口(TODO)
 * [ ] TypeScript(TODO)
 * [ ] 测试用例(TODO)
 

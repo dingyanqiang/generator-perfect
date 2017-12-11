@@ -114,19 +114,22 @@ function getRulesConfig() {
       }
     );
   } else {
-    <% if (styleType == 'less') { %>test: /\.(css|less)$/,<% } %>
-    <% if (styleType == 'scss') { %>test: /\.(css|scss)$/,<% } %>
-    <% if (styleType == 'css') { %>test: /\.(css)$/,<% } %>
-    use: [
-      'style-loader',
+    rulesConfig.push(
       {
-        loader: 'css-loader',
-        options: { modules: webpackConfig.cssModule }
-      },
-      'postcss-loader',
-      <% if (styleType == 'less') { %>'less-loader',<% } %>
-      <% if (styleType == 'scss') { %>'sass-loader'<% } %>
-    ]
+      <% if (styleType == 'less') { %>test: /\.(css|less)$/,<% } %>
+      <% if (styleType == 'scss') { %>test: /\.(css|scss)$/,<% } %>
+      <% if (styleType == 'css') { %>test: /\.(css)$/,<% } %>
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: { modules: webpackConfig.cssModule }
+        },
+        'postcss-loader',
+        <% if (styleType == 'less') { %>'less-loader',<% } %>
+        <% if (styleType == 'scss') { %>'sass-loader'<% } %>
+      ]
+    }
   }
   return rulesConfig;
 }

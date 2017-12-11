@@ -42,7 +42,7 @@ yo perfect:util
 * [X] 可选择Less Lass Css
 * [X] Dll库开关
 * [X] 公共文件开关(Common.js/.css)
-* [X] 生成环境文件Banner(author,emaill,date)
+* [X] 生成环境文件标记Banner(author,emaill,date)
 * [X] 默认开启 CSS moduel
 * [X] 热替换(Hot Replace)
 * [X] 样式前缀(AutoPrefixer)

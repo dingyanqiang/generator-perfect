@@ -7,8 +7,9 @@
   "main": "index.js",
   "scripts": {
     "dll": "webpack --progress --hide-modules --config webpack.dll.js",
+    "dll:min": "cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack.dll.js",
     "server": "node webpack.server.js",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack.prod.js",
+    "build": "npm run dll:min && cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [""],
@@ -57,13 +58,14 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
-    "moment": "^2.19.4",
     <% if (projectType == "react") { %>
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
     <% } %>
     <% if (projectType == "vue") { %>
-      "vue": "^2.5.0"
+    "vue": "^2.5.0",
     <% } %>
+    "moment": "^2.19.4",
+    "isomorphic-fetch": "^2.2.1"
   }
 }

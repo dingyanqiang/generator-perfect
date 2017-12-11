@@ -19,6 +19,8 @@
     "entryPage": "src/pages/*",
     "port": "8888",
     "devtool": "eval-source-map",
+    "enableDll": true,
+    "enableCommon": false,
     "cssModule": true
   },
   "devDependencies": {

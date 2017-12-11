@@ -153,11 +153,6 @@ module.exports = class extends Generator {
     mkdirp('src/publish/svgs');
   }
   _writingProjectConfigFile() {
-    this.fs.copyTpl(
-      this.templatePath('package.json'),
-      this.destinationPath('package.json'),
-      this.answers
-    );
     this.fs.copy(this.templatePath('favicon.ico'), this.destinationPath('favicon.ico'));
     this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('README.md'), this.destinationPath('README.md'));
@@ -167,26 +162,39 @@ module.exports = class extends Generator {
       this.destinationPath('postcss.config.js')
     );
     this.fs.copy(
+      this.templatePath('dev-template/**'),
+      this.destinationPath('src/templates')
+    );
+    this.fs.copyTpl(
+      this.templatePath('package.json'),
+      this.destinationPath('package.json'),
+      this.answers
+    );
+    this.fs.copyTpl(
       this.templatePath('webpack.common.js'),
-      this.destinationPath('webpack.common.js')
+      this.destinationPath('webpack.common.js'),
+      this.answers
     );
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('webpack.dev.js'),
-      this.destinationPath('webpack.dev.js')
+      this.destinationPath('webpack.dev.js'),
+      this.answers
     );
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('webpack.dll.js'),
-      this.destinationPath('webpack.dll.js')
+      this.destinationPath('webpack.dll.js'),
+      this.answers
     );
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('webpack.prod.js'),
-      this.destinationPath('webpack.prod.js')
+      this.destinationPath('webpack.prod.js'),
+      this.answers
     );
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('webpack.server.js'),
-      this.destinationPath('webpack.server.js')
+      this.destinationPath('webpack.server.js'),
+      this.answers
     );
-    this.fs.copy(this.templatePath('views/**'), this.destinationPath('src/views'));
   }
   _writingPageFile() {
     let { projectType, styleType } = this.answers;
@@ -196,7 +204,7 @@ module.exports = class extends Generator {
       this.answers
     );
 
-    if (projectType == 'pc' || projectType == 'h5') {
+    if (projectType === 'pc' || projectType === 'h5') {
       this.fs.copyTpl(
         this.templatePath(`pages/${projectType}/index.html`),
         this.destinationPath(`src/pages/${projectType}/index.html`),
@@ -204,7 +212,7 @@ module.exports = class extends Generator {
       );
     }
 
-    if (projectType == 'vue') {
+    if (projectType === 'vue') {
       this.fs.copyTpl(
         this.templatePath(`pages/${projectType}/App.vue`),
         this.destinationPath(`src/pages/${projectType}/App.vue`),
@@ -228,11 +236,10 @@ module.exports = class extends Generator {
     // });
   }
   end() {
-    const packageJson = this.fs.readJSON(this.destinationPath('package.json'));
+    // Const packageJson = this.fs.readJSON(this.destinationPath('package.json'));
     // Const yarnLockJson = this.fs.readJSON(this.destinationPath('yarn.lock'));
-    // const howToInstall = `After running ${chalk.yellow.bold(
-    //   'npm install'
-    // )}, if fail try use cnpm install`;
+    // const howToInstall = `After running ${chalk.yellow.bold('npm install')}, if fail try use cnpm install`;
+
     // if (this.options['skip-install']) {
     //   this.log(howToInstall);
     //   return;

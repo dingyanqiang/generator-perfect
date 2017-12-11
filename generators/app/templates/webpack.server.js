@@ -20,7 +20,7 @@ const webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
 });
 
 const app = express();
-app.set('views', path.join(__dirname, 'src', 'views'));
+app.set('views', path.join(__dirname, 'src', 'templates'));
 app.set('view engine', 'pug');
 app.use(morgan(function (tokens, req, res) {
 	let str = [
@@ -49,7 +49,7 @@ app.listen(port, 'localhost', function(err, result){
 	log(chalk.green(`Listening at ${chalk.cyan(`http://localhost:${port}/`)} \n`));
 });
 app.get("/", function(req, res) {
-	res.render('index-html',{
+	res.render('pages-dev-tpl',{
 		title:'列表页',
 		message:'请选择你需要进入的页面',
 		listUrl: getListUrl()

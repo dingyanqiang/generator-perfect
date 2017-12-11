@@ -15,7 +15,7 @@ module.exports = merge(common, {
     }),
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.BannerPlugin({
-      banner: `author:${pkg.author},email:${pkg.email},email:${time}`
+      banner: `author:${pkg.author},email:${pkg.email},time:${time}`
     })
   ]
 });

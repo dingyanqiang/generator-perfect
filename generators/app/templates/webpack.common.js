@@ -20,12 +20,17 @@ dirList.forEach((dir, index) => {
    此处把.html文件放到dist跟目录,为了解决webpack-hot-middleware配置路径问题
    path=/__webpack_hmr设置路径问题，还需进一步探索
   */
+
+  let hasPageTpl = fs.existsSync(dir+'/index.html');
+  let tplHtml = hasPageTpl ? `${dir}/index.html` : './src/templates/webpack-dev-tpl.html';
+  let chunkArr = webpackConfig.enableCommon ? [dirKeyStr] : ['vendor', dirKeyStr];
+
   let htmlStr = dir.split('/')[2];
   htmlWebpackPluginArr.push(
     new HtmlWebpackPlugin({
       filename: `${htmlStr}.html`,
-      chunks: [dirKeyStr],
-      template: './src/views/webpack-dev-tpl.html'
+      chunks: chunkArr,
+      template: tplHtml
     })
   );
 });
@@ -37,13 +42,19 @@ function getPluginsConfig() {
   const pluginsConfig = [
     new CleanWebpackPlugin(['dist'],{exclude: ['dll']}),
     ...htmlWebpackPluginArr,
-    new webpack.DllReferencePlugin({
-      context: path.resolve(__dirname),
-      manifest: require('./dist/dll/manifest.json')
-    }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor'
-    // }),
+    <% if (webpackConfig.enableDll) { %>
+      new webpack.DllReferencePlugin({
+        context: path.resolve(__dirname),
+        manifest: require('./dist/dll/manifest.json')
+      }),  
+    <% } %>
+    <% if (webpackConfig.enableCommon) { %>
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        filename: 'pages/common/vendor.js',
+        minChunks: 2
+      }),
+    <% } %>
     new OpenBrowserPlugin({ url: openUrl }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ];
@@ -62,20 +73,36 @@ function getPluginsConfig() {
   return pluginsConfig;
 }
 function getRulesConfig() {
-  const rulesConfig = [{
-    test: /\.jsx?$/,
-    include: path.resolve(__dirname, "src"),
-    loader: "babel-loader"
-  }, {
-    test: /\.(png|svg|jpg|gif)$/,
-    use: [
-      'file-loader'
-    ]
-  }];
+  const rulesConfig = [
+    <% if (projectType == 'vue') { %>
+    {
+      test: /\.vue$/,
+      include: path.resolve(__dirname, "src"),
+      loader: 'babel-vue'
+    },
+    <% } %>
+    {
+      test: /\.jsx?$/,
+      include: path.resolve(__dirname, "src"),
+      loader: 'babel-loader'
+    }, {
+      test: /\.(png|svg|jpg|gif)$/,
+      use: [ 'file-loader' ]
+    }
+  ];
+  
   if (isProduction) {
     rulesConfig.push(
       {
+        <% if (styleType == 'less') { %>
         test: /\.(css|less)$/,
+        <% } %>
+        <% else if ( styleType == 'sass' ) { %>
+        test: /\.(css|scss)$/,
+        <% } %>
+        <% else { %>
+        test: /\.(css)$/,
+        <% } %>
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -84,7 +111,12 @@ function getRulesConfig() {
               options: { modules: webpackConfig.cssModule }
             },
             'postcss-loader', 
-            'less-loader'
+            <% if (styleType == 'less') { %>
+            'less-loader',
+            <% } %>
+            <% if (styleType == 'sass') { %>
+            'sass-loader'
+            <% } %>
           ]
         })
       }
@@ -92,7 +124,15 @@ function getRulesConfig() {
   } else {
     rulesConfig.push(
       {
+        <% if (styleType == 'less') { %>
         test: /\.(css|less)$/,
+        <% } %>
+        <% else if ( styleType == 'sass' ) { %>
+        test: /\.(css|scss)$/,
+        <% } %>
+        <% else { %>
+        test: /\.(css)$/,
+        <% } %>
         use: [
           'style-loader',
           {
@@ -100,7 +140,12 @@ function getRulesConfig() {
             options: { modules: webpackConfig.cssModule }
           },
           'postcss-loader',
-          'less-loader'
+          <% if (styleType == 'less') { %>
+          'less-loader',
+          <% } %>
+          <% if (styleType == 'sass') { %>
+          'sass-loader'
+          <% } %>
         ]
       }
     );

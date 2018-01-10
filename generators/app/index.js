@@ -145,9 +145,9 @@ module.exports = class extends Generator {
     mkdirp('src/pages');
     mkdirp('src/components');
     mkdirp('src/utils');
-    mkdirp('src/publish/lib');
-    mkdirp('src/publish/images');
-    mkdirp('src/publish/svgs');
+    mkdirp('src/public/lib');
+    mkdirp('src/public/images');
+    mkdirp('src/public/svgs');
   }
   _writingProjectConfigFile() {
     this.fs.copy(this.templatePath('favicon.ico'), this.destinationPath('favicon.ico'));

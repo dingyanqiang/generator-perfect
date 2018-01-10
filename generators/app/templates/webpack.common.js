@@ -39,15 +39,7 @@ dirList.forEach((dir, index) => {
 function getPluginsConfig() {
   let port = webpackConfig.port || 8080;
   let openUrl = `http://localhost:${port}`;
-  const dllObj = new webpack.DllReferencePlugin({
-    context: path.resolve(__dirname),
-    manifest: require('./dist/dll/manifest.json')
-  });
-  const commonObj = new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    filename: 'pages/common/vendor.js',
-    minChunks: 2
-  });
+  
   const pluginsConfig = [
     new CleanWebpackPlugin(['dist'],{exclude: ['dll']}),
     ...htmlWebpackPluginArr,
@@ -55,9 +47,18 @@ function getPluginsConfig() {
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ];
   if (webpackConfig.enableDll) {
+    const dllObj = new webpack.DllReferencePlugin({
+      context: path.resolve(__dirname),
+      manifest: require('./dist/dll/manifest.json')
+    });
     pluginsConfig.splice(1, 0, dllObj);
   }
   if (webpackConfig.enableCommon) {
+    const commonObj = new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'pages/common/vendor.js',
+      minChunks: 2
+    });
     pluginsConfig.splice(1, 0, commonObj);
   }
 

@@ -20,7 +20,7 @@
     "entryPage": "src/pages/*",
     "port": "8888",
     "devtool": "eval-source-map",
-    "enableDll": true,
+    "enableDll": false,
     "enableCommon": false,
     "cssModule": true
   },
